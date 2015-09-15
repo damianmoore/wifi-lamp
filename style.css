@@ -3,3 +3,7 @@ body {
   font-family: Arial, Helvetica, Sans-Serif;
   color: #000088;
 }
+
+#slide {
+  width: 100%;
+}
