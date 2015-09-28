@@ -24,8 +24,8 @@ var WifiLampApp = React.createClass({
       <div>
         <h1>WiFi Lamp</h1>
         <div id="bulb">
-          <img id="bulb-dark" src="bulb_dark.svg" />
-          <img id="bulb-light" src="bulb_light.svg" style={{opacity: this.state.brightness}} />
+          <img id="bulb-dark" src="https://cdn.rawgit.com/damianmoore/wifi-lamp/master/bulb_dark.svg" />
+          <img id="bulb-light" src="https://cdn.rawgit.com/damianmoore/wifi-lamp/master/bulb_light.svg" style={{opacity: this.state.brightness}} />
         </div>
         <p>
           <button type="button" onClick={this.setBrightness.bind(null, 0)}>OFF</button>
