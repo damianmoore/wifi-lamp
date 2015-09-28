@@ -1,8 +1,33 @@
 body {
-  background-color: #cccccc;
+  background-color: #34495e;
   font-family: Arial, Helvetica, Sans-Serif;
-  color: #000088;
+  color: #ecf0f1;
 }
+
+h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+
+p {
+  text-align: center;
+}
+
+
+#bulb {
+  height: 300px;
+  width: 168px;
+  margin: 50px auto;
+  position: relative;
+}
+
+#bulb img {
+  position: absolute;
+  top: 0;
+  display: block;
+  height: 100%;
+}
+
 
 #slide {
   width: 100%;

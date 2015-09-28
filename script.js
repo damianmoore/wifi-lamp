@@ -20,25 +20,21 @@ var WifiLampApp = React.createClass({
     this.setBrightness(e.currentTarget.valueAsNumber);
   },
   render: function() {
-    var rangeButtons = [];
-    for (var i = 0; i <= 10; i++) {
-      rangeButtons.push(<button type="button" onClick={this.setBrightness.bind(null, i / 10)}>{i}0%</button>);
-    }
     return (
       <div>
-        <h1>Wi-Fi Lamp</h1>
-        <p>Uptime: {configVars.uptime}</p>
+        <h1>WiFi Lamp</h1>
+        <div id="bulb">
+          <img id="bulb-dark" src="bulb_dark.svg" />
+          <img id="bulb-light" src="bulb_light.svg" style={{opacity: this.state.brightness}} />
+        </div>
         <p>
           <button type="button" onClick={this.setBrightness.bind(null, 0)}>OFF</button>
           <button type="button" onClick={this.setBrightness.bind(null, 1)}>ON</button>
         </p>
         <p>
-          {rangeButtons}
-        </p>
-        <p>
           <input id="slide" type="range" min="0" max="1.0" step="0.001" defaultValue={this.state.brightness} value={this.state.brightness} onChange={this.handleRangeChange} />
         </p>
-        <p>State: {this.state.brightness}</p>
+        <p>Brightness: {parseInt(this.state.brightness * 100)}%</p>
       </div>
     );
   }
