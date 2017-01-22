@@ -2,6 +2,7 @@ body {
   background-color: #34495e;
   font-family: Arial, Helvetica, Sans-Serif;
   color: #ecf0f1;
+  margin: 0;
 }
 
 h1 {
@@ -13,10 +14,14 @@ p {
   text-align: center;
 }
 
+button {
+  padding: 10px 25px;
+  width: 120px;
+}
 
 #bulb {
-  height: 300px;
-  width: 168px;
+  height: 250px;
+  width: 140px;
   margin: 50px auto;
   position: relative;
 }
@@ -30,5 +35,5 @@ p {
 
 
 #slide {
-  width: 100%;
+  width: 90%;
 }
