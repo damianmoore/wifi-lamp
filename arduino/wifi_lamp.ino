@@ -1,10 +1,11 @@
-#include <ESP8266WiFi.h>          //ESP8266 Core WiFi Library (you most likely already have this in your sketch)
+#include <ESP8266WiFi.h>          // ESP8266 Core WiFi Library
 
-#include <DNSServer.h>            //Local DNS Server used for redirecting all requests to the configuration portal
-#include <ESP8266WebServer.h>     //Local WebServer used to serve the configuration portal
-#include <WiFiManager.h>          //https://github.com/tzapu/WiFiManager WiFi Configuration Magic
+#include <DNSServer.h>            // Local DNS Server used for redirecting all requests to the configuration portal
+#include <ESP8266WebServer.h>     // Local WebServer used to serve the configuration portal
+#include <WiFiManager.h>          // https://github.com/tzapu/WiFiManager WiFi Configuration Magic
 
 #include <ESP8266mDNS.h>
+
 
 MDNSResponder mdns;
 
@@ -15,15 +16,15 @@ long brightness = 1023;
 
 
 void handleRoot() {
-	char temp[1000];
-	int sec = millis() / 1000;
-	int min = sec / 60;
-	int hr = min / 60;
+  char temp[1000];
+  int sec = millis() / 1000;
+  int min = sec / 60;
+  int hr = min / 60;
   float bFloat = float(brightness) / 1023;
   int b1 = (int)bFloat;
   int b2 = (int)((bFloat - b1) * 1000);
 
-	snprintf (temp, 1000,
+  snprintf (temp, 1000,
 
 "<html>\
   <head>\
@@ -49,9 +50,9 @@ void handleRoot() {
   </body>\
 </html>",
 
-		brightness, b1, b2, hr, min % 60, sec % 60
-	);
-	server.send(200, "text/html", temp);
+    brightness, b1, b2, hr, min % 60, sec % 60
+  );
+  server.send(200, "text/html", temp);
 }
 
 
@@ -71,46 +72,45 @@ void handleApi() {
   }
 
   analogWrite(output, 1023 - brightness);
-
-	server.send(200, "text/plain", "OK");
+  server.send(200, "text/plain", "OK");
 }
 
 
 void handleNotFound() {
-	String message = "File Not Found\n\n";
-	message += "URI: ";
-	message += server.uri();
-	message += "\nMethod: ";
-	message += (server.method() == HTTP_GET) ? "GET" : "POST";
-	message += "\nArguments: ";
-	message += server.args();
-	message += "\n";
+  String message = "File Not Found\n\n";
+  message += "URI: ";
+  message += server.uri();
+  message += "\nMethod: ";
+  message += (server.method() == HTTP_GET) ? "GET" : "POST";
+  message += "\nArguments: ";
+  message += server.args();
+  message += "\n";
 
-	for (uint8_t i = 0; i < server.args(); i++) {
-		message += " " + server.argName (i) + ": " + server.arg (i) + "\n";
-	}
+  for (uint8_t i = 0; i < server.args(); i++) {
+    message += " " + server.argName (i) + ": " + server.arg (i) + "\n";
+  }
 
-	server.send(404, "text/plain", message);
+  server.send(404, "text/plain", message);
 }
 
 
 void setup (void) {
-	pinMode(output, OUTPUT);
-	analogWrite(output, 1023 - brightness);
-	Serial.begin(115200);
+  pinMode(output, OUTPUT);
+  analogWrite(output, 1023 - brightness);
+  Serial.begin(115200);
   Serial.println("Starting...");
   WiFiManager wifiManager;
   wifiManager.autoConnect();
 
-	server.on("/", handleRoot);
+  server.on("/", handleRoot);
   server.on("/api/", handleApi);
-	server.onNotFound (handleNotFound);
-	server.begin();
-	Serial.println("HTTP server started");
+  server.onNotFound (handleNotFound);
+  server.begin();
+  Serial.println("HTTP server started");
 }
 
 
 void loop (void) {
-	mdns.update();
-	server.handleClient();
+  mdns.update();
+  server.handleClient();
 }
